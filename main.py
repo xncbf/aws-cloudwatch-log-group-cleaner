@@ -14,7 +14,7 @@ delete = False
 debug = True
 log_group_prefix='/' # NEED TO CHANGE THESE
 
-days = 30
+days = 90
 # Create CloudWatchLogs client
 cloudwatch_logs = boto3.client('logs', config=config)
 
@@ -58,8 +58,10 @@ for log_group in log_groups:
 if delete:
     for log_group in old_log_groups:
         response = cloudwatch_logs.delete_log_group(logGroupName=log_group)
-    #for log_group in empty_log_groups:
-    #    response = cloudwatch_logs.delete_log_group(logGroupName=log_group)
+        print(response)
+    for log_group in empty_log_groups:
+        response = cloudwatch_logs.delete_log_group(logGroupName=log_group)
+        print(response)
 else:
     print("old log groups are:")
     print(old_log_groups)
